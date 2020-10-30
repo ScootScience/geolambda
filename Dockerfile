@@ -6,13 +6,13 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
 RUN \
-    # apt update && \
-    # apt-get install --assume-yes libeccodes0 zip binutils rsync
-    # yum makecache fast; \
-    # yum install -y wget libpng-devel nasm eccodes.x86_64; \
-    # yum install -y bash-completion --enablerepo=epel; \
-    # yum clean all; \
-    # yum autoremove \
+    apt update && \
+    apt-get install --assume-yes libeccodes0 zip binutils rsync
+    yum makecache fast; \
+    yum install -y wget libpng-devel nasm eccodes.x86_64; \
+    yum install -y bash-completion --enablerepo=epel; \
+    yum clean all; \
+    yum autoremove \
 
 # versions of packages
 # ENV \
