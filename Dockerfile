@@ -9,7 +9,7 @@ RUN \
     apt update && \
     apt-get install --assume-yes libeccodes0 zip binutils rsync && \
     apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
-    pip3 install cfgrib eecodes
+    pip3 install cfgrib xarray
     # yum makecache fast; \
     # yum install -y wget libpng-devel nasm eccodes; \
     # yum install -y bash-completion --enablerepo=epel; \
