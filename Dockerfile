@@ -1,7 +1,8 @@
-FROM lambci/lambda:build-provided
+# FROM lambci/lambda:build-provided
+FROM ubuntu:bionic
 
 LABEL maintainer="Scoot Science/Connor Dibble <connor.dibble@scootscience.com>"
-LABEL authors="forked from Matthew Hanson  <matt.a.hanson@gmail.com>"
+LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
 RUN \
