@@ -9,7 +9,8 @@ RUN \
     yum install -y wget libpng-devel nasm libeccodes0; \
     yum install -y bash-completion --enablerepo=epel; \
     yum clean all; \
-    yum autoremove
+    yum autoremove \
+    apt-get install 
 
 # versions of packages
 # ENV \
