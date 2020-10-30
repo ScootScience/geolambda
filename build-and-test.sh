@@ -21,8 +21,6 @@ aws lambda publish-layer-version \
 	--license-info "Proprietary" \
 	--description "EECodes C library (libeccodes0) for cfGrib driver (adds GRIB file backend for xarray)" \
 	--zip-file fileb://lambda-deploy.zip
+    # --compatible-runtimes python3.6 python3.7
 
 # attach to lambda
-aws lambda add-layer-version-permission --layer-name geolambda \
-	--statement-id public --version-number 1 --principal '*' \
-	--action lambda:GetLayerVersion
