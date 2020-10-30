@@ -1,15 +1,15 @@
-# FROM lambci/lambda:build-provided
-FROM ubuntu:bionic
+FROM lambci/lambda:build-provided
+# FROM ubuntu:bionic
 
 LABEL maintainer="Scoot Science/Connor Dibble <connor.dibble@scootscience.com>"
 LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
 RUN \
-    apt update && \
-    apt-get install --assume-yes libeccodes0 zip binutils rsync
+    # apt update && \
+    # apt-get install --assume-yes libeccodes0 zip binutils rsync
     # yum makecache fast; \
-    # yum install -y wget libpng-devel nasm; \
+    # yum install -y wget libpng-devel nasm eccodes.x86_64; \
     # yum install -y bash-completion --enablerepo=epel; \
     # yum clean all; \
     # yum autoremove \
@@ -208,12 +208,12 @@ WORKDIR /build
 #     cd ${BUILD}; rm -rf gdal
 
 # # Open SSL is needed for building Python so it's included here for ease
-# RUN \
-#     mkdir openssl; \
-#     wget -qO- https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz \
-#         | tar xvz -C openssl --strip-components=1; cd openssl; \
-#     ./config shared --prefix=${PREFIX}/openssl --openssldir=${PREFIX}/openssl; \
-#     make depend; make install; cd ..; rm -rf openssl
+RUN \
+    mkdir openssl; \
+    wget -qO- https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz \
+        | tar xvz -C openssl --strip-components=1; cd openssl; \
+    ./config shared --prefix=${PREFIX}/openssl --openssldir=${PREFIX}/openssl; \
+    make depend; make install; cd ..; rm -rf openssl
 
 
 # Copy shell scripts and config files over

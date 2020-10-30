@@ -2,14 +2,27 @@
 
 VERSION=$(cat VERSION)
 
-docker build . -t developmentseed/geolambda:${VERSION}
-docker run --rm -v $PWD:/home/geolambda -it developmentseed/geolambda:${VERSION} package.sh
+# docker build . -t developmentseed/geolambda:${VERSION}
+# docker run --rm -v $PWD:/home/geolambda -it developmentseed/geolambda:${VERSION} package.sh
 # connor dev version:
-docker build . -t developmentseed/geolambda:${VERSION}
+sudo docker build . -t scootscience/geolambda:${VERSION}
+sudo docker run --rm -v $PWD:/home/geolambda -it scootscience/geolambda:${VERSION} package.sh
 
 # test below
-cd python
-docker build . --build-arg VERSION=${VERSION} -t developmentseed/geolambda:${VERSION}-python
-docker run -v ${PWD}:/home/geolambda -t developmentseed/geolambda:${VERSION}-python package-python.sh
+# cd python
+# docker build . --build-arg VERSION=${VERSION} -t developmentseed/geolambda:${VERSION}-python
+# docker run -v ${PWD}:/home/geolambda -t developmentseed/geolambda:${VERSION}-python package-python.sh
 
-docker run --rm -v ${PWD}/lambda:/var/task -v ${PWD}/../lambda:/opt lambci/lambda:python3.7 lambda_function.lambda_handler '{}'
+# docker run --rm -v ${PWD}/lambda:/var/task -v ${PWD}/../lambda:/opt lambci/lambda:python3.7 lambda_function.lambda_handler '{}'
+
+# publish
+aws lambda publish-layer-version \
+	--layer-name cfgribGeolambda \
+	--license-info "Proprietary" \
+	--description "EECodes C library (libeccodes0) for cfGrib driver (adds GRIB file backend for xarray)" \
+	--zip-file fileb://lambda-deploy.zip
+
+# attach to lambda
+aws lambda add-layer-version-permission --layer-name geolambda \
+	--statement-id public --version-number 1 --principal '*' \
+	--action lambda:GetLayerVersion
