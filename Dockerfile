@@ -9,7 +9,7 @@ RUN \
     apt update && \
     apt-get install --assume-yes libeccodes0 zip binutils rsync
     # yum makecache fast; \
-    # yum install -y wget libpng-devel nasm libeccodes0; \
+    # yum install -y wget libpng-devel nasm; \
     # yum install -y bash-completion --enablerepo=epel; \
     # yum clean all; \
     # yum autoremove \

@@ -9,10 +9,10 @@ echo Creating deploy package
 mkdir -p $DEPLOY_DIR/lib
 
 # copy libs
-cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
-cp -P ${PREFIX}/lib64/libjpeg*.so* $DEPLOY_DIR/lib/
+# cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
+# cp -P ${PREFIX}/lib64/libjpeg*.so* $DEPLOY_DIR/lib/
 
-strip $DEPLOY_DIR/lib/* || true
+# strip $DEPLOY_DIR/lib/* || true
 
 # copy GDAL_DATA files over
 # mkdir -p $DEPLOY_DIR/share
