@@ -9,7 +9,7 @@ RUN \
     # apt update && \
     # apt-get install --assume-yes libeccodes0 zip binutils rsync
     yum makecache fast; \
-    yum install -y wget libpng-devel nasm eccodes.x86_64; \
+    yum install -y wget libpng-devel nasm eccodes; \
     yum install -y bash-completion --enablerepo=epel; \
     yum clean all; \
     yum autoremove
