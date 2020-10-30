@@ -7,7 +7,9 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 # install system libraries
 RUN \
     apt update && \
-    apt-get install --assume-yes libeccodes0 zip binutils rsync build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip \
+    apt-get install --assume-yes libeccodes0 zip binutils rsync  \
+    apt update && \
+    apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip \
     pip3 install cfgrib eecodes
     # yum makecache fast; \
     # yum install -y wget libpng-devel nasm eccodes; \
