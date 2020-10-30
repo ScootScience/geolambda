@@ -17,7 +17,7 @@ RUN \
     # yum autoremove
 
 # versions of packages
-ENV \
+# ENV \
 #     GDAL_VERSION=3.0.1 \
 #     PROJ_VERSION=6.2.0 \
 #     GEOS_VERSION=3.8.0 \
@@ -33,7 +33,7 @@ ENV \
 #     SZIP_VERSION=2.1.1 \
 #     WEBP_VERSION=1.0.3 \
 #     ZSTD_VERSION=1.4.3 \
-    OPENSSL_VERSION=1.0.2
+    # OPENSSL_VERSION=1.0.2
 
 # Paths to things
 ENV \
@@ -210,12 +210,12 @@ WORKDIR /build
 #     cd ${BUILD}; rm -rf gdal
 
 # # Open SSL is needed for building Python so it's included here for ease
-RUN \
-    mkdir openssl; \
-    wget -qO- https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz \
-        | tar xvz -C openssl --strip-components=1; cd openssl; \
-    ./config shared --prefix=${PREFIX}/openssl --openssldir=${PREFIX}/openssl; \
-    make depend; make install; cd ..; rm -rf openssl
+# RUN \
+#     mkdir openssl; \
+#     wget -qO- https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz \
+#         | tar xvz -C openssl --strip-components=1; cd openssl; \
+#     ./config shared --prefix=${PREFIX}/openssl --openssldir=${PREFIX}/openssl; \
+#     make depend; make install; cd ..; rm -rf openssl
 
 
 # Copy shell scripts and config files over
