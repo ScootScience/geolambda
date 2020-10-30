@@ -6,12 +6,13 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
 RUN \
-    yum makecache fast; \
-    yum install -y wget libpng-devel nasm libeccodes0; \
-    yum install -y bash-completion --enablerepo=epel; \
-    yum clean all; \
-    yum autoremove \
-    apt-get install 
+    apt update && \
+    apt-get install libeccodes0
+    # yum makecache fast; \
+    # yum install -y wget libpng-devel nasm libeccodes0; \
+    # yum install -y bash-completion --enablerepo=epel; \
+    # yum clean all; \
+    # yum autoremove \
 
 # versions of packages
 # ENV \
@@ -33,18 +34,18 @@ RUN \
 #     OPENSSL_VERSION=1.0.2
 
 # Paths to things
-ENV \
-    BUILD=/build \
-    NPROC=4 \
-    PREFIX=/usr/local \
-    GDAL_CONFIG=/usr/local/bin/gdal-config \
-    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64 \
-    PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig:/usr/lib64/pkgconfig \
-    GDAL_DATA=${PREFIX}/share/gdal \
-    PROJ_LIB=${PREFIX}/share/proj
+# ENV \
+#     BUILD=/build \
+#     NPROC=4 \
+#     PREFIX=/usr/local \
+#     GDAL_CONFIG=/usr/local/bin/gdal-config \
+#     LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64 \
+#     PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig:/usr/lib64/pkgconfig \
+#     GDAL_DATA=${PREFIX}/share/gdal \
+#     PROJ_LIB=${PREFIX}/share/proj
 
 # switch to a build directory
-WORKDIR /build
+# WORKDIR /build
 
 # pkg-config - version > 2.5 required for GDAL 2.3+
 # RUN \
@@ -216,6 +217,6 @@ WORKDIR /build
 
 
 # Copy shell scripts and config files over
-COPY bin/* /usr/local/bin/
+# COPY bin/* /usr/local/bin/
 
-WORKDIR /home/geolambda
+# WORKDIR /home/geolambda
