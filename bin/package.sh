@@ -21,7 +21,7 @@ mkdir -p $DEPLOY_DIR/python
 # rsync -ax $PREFIX/share/proj $DEPLOY_DIR/share/
 
 # copy python packages
-pip3 install cfgrib xarray -t $DEPLOY_DIR/python
+pip3 install cfgrib -t $DEPLOY_DIR/python
 
 # zip up deploy package
 cd $DEPLOY_DIR
