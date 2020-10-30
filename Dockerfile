@@ -1,18 +1,18 @@
-FROM lambci/lambda:build-provided
-# FROM ubuntu:bionic
+# FROM lambci/lambda:build-provided
+FROM ubuntu:bionic
 
 LABEL maintainer="Scoot Science/Connor Dibble <connor.dibble@scootscience.com>"
 LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
 RUN \
-    # apt update && \
-    # apt-get install --assume-yes libeccodes0 zip binutils rsync
-    yum makecache fast; \
-    yum install -y wget libpng-devel nasm eccodes; \
-    yum install -y bash-completion --enablerepo=epel; \
-    yum clean all; \
-    yum autoremove
+    apt update && \
+    apt-get install --assume-yes libeccodes0 zip binutils rsync build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip
+    # yum makecache fast; \
+    # yum install -y wget libpng-devel nasm eccodes; \
+    # yum install -y bash-completion --enablerepo=epel; \
+    # yum clean all; \
+    # yum autoremove
 
 # versions of packages
 ENV \
