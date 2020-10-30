@@ -7,7 +7,7 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 # install system libraries
 RUN \
     apt update && \
-    apt-get install --assume-yes libeccodes0 zip strip rsync
+    apt-get install --assume-yes libeccodes0 zip binutils rsync
     # yum makecache fast; \
     # yum install -y wget libpng-devel nasm libeccodes0; \
     # yum install -y bash-completion --enablerepo=epel; \
