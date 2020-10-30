@@ -4,7 +4,10 @@ VERSION=$(cat VERSION)
 
 docker build . -t developmentseed/geolambda:${VERSION}
 docker run --rm -v $PWD:/home/geolambda -it developmentseed/geolambda:${VERSION} package.sh
+# connor dev version:
+docker build . -t developmentseed/geolambda:${VERSION}
 
+# test below
 cd python
 docker build . --build-arg VERSION=${VERSION} -t developmentseed/geolambda:${VERSION}-python
 docker run -v ${PWD}:/home/geolambda -t developmentseed/geolambda:${VERSION}-python package-python.sh
