@@ -6,16 +6,16 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
 RUN \
-    apt update && \
-    apt-get install --assume-yes libeccodes0 zip binutils rsync
+    # apt update && \
+    # apt-get install --assume-yes libeccodes0 zip binutils rsync
     yum makecache fast; \
     yum install -y wget libpng-devel nasm eccodes.x86_64; \
     yum install -y bash-completion --enablerepo=epel; \
     yum clean all; \
-    yum autoremove \
+    yum autoremove
 
 # versions of packages
-# ENV \
+ENV \
 #     GDAL_VERSION=3.0.1 \
 #     PROJ_VERSION=6.2.0 \
 #     GEOS_VERSION=3.8.0 \
@@ -31,7 +31,7 @@ RUN \
 #     SZIP_VERSION=2.1.1 \
 #     WEBP_VERSION=1.0.3 \
 #     ZSTD_VERSION=1.4.3 \
-#     OPENSSL_VERSION=1.0.2
+    OPENSSL_VERSION=1.0.2
 
 # Paths to things
 ENV \
