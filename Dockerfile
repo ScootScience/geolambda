@@ -14,6 +14,7 @@ RUN \
     yum install -y wget libpng-devel nasm eccodes; \
     yum install -y bash-completion --enablerepo=epel; \
     yum clean all; \
+    yum remove cmake; \
     yum autoremove
 
 # versions of packages
@@ -50,11 +51,30 @@ ENV \
 # switch to a build directory
 WORKDIR /build
 
+# Upgrade cmake by installing from source
+RUN \
+    mkdir cmake; \
+    wget -qO- https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz \
+        | tar -xzv -C cmake --strip-components=1; cd cmake; \
+    # ./configure --prefix=$PREFIX ; \
+    ./bootstrap \
+    make; \
+    make -j ${NPROC} install ; \
+    cd ../; rm -rf cmake
+
+# wget https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz
+# tar -xvzf cmake-3.18.0.tar.gz
+# cd cmake-3.18.0
+# ./bootstrap
+# make
+# sudo make install
+
+# Install ECCODES library
 RUN \
     mkdir libeccodes0; \
     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
-        | tar -xzf -C libeccodes0 --strip-components=1; cd libeccodes0; \
-    ./configure --prefix=$PREFIX ; \
+        | tar -xzv -C libeccodes0 --strip-components=1; cd libeccodes0; \
+    # ./configure --prefix=$PREFIX ; \
     cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
     make -j ${NPROC} install; \
     ctest; \
