@@ -7,7 +7,7 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 # install system libraries
 RUN \
     apt update && \
-    apt-get install --assume-yes libeccodes0 zip binutils rsync && \
+    apt-get install --assume-yes libeccodes0 zip binutils rsync libbz2-dev && \ 
     apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
     pip3 install cfgrib eccodes-python eccodes
     # yum makecache fast; \
