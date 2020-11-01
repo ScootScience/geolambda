@@ -1,20 +1,20 @@
-# FROM lambci/lambda:build-provided
-FROM ubuntu:bionic
+FROM lambci/lambda:build-provided
+# FROM ubuntu:bionic
 
 LABEL maintainer="Scoot Science/Connor Dibble <connor.dibble@scootscience.com>"
 LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
 RUN \
-    apt update && \
-    apt-get install --assume-yes libeccodes0 libeccodes0-dev zip binutils rsync libbz2-dev && \ 
-    apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
-    pip3 install cfgrib eccodes-python eccodes
-    # yum makecache fast; \
-    # yum install -y wget libpng-devel nasm eccodes; \
-    # yum install -y bash-completion --enablerepo=epel; \
-    # yum clean all; \
-    # yum autoremove
+    # apt update && \
+    # apt-get install --assume-yes libeccodes0 libeccodes0-dev zip binutils rsync libbz2-dev && \ 
+    # apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
+    # pip3 install cfgrib eccodes-python eccodes
+    yum makecache fast; \
+    yum install -y wget libpng-devel nasm eccodes; \
+    yum install -y bash-completion --enablerepo=epel; \
+    yum clean all; \
+    yum autoremove
 
 # versions of packages
 ENV \
@@ -50,16 +50,16 @@ ENV \
 # switch to a build directory
 WORKDIR /build
 
-# RUN \
-#     mkdir libeccodes0; \
-#     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
-#         | tar -xzf -C libeccodes0 --strip-components=1; cd libeccodes0; \
-#     ./configure --prefix=$PREFIX ; \
-#     cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source
-#     make -j ${NPROC} install; \
-#     ctest
-#     make install
-#     cd ../; rm -rf libeccodes0
+RUN \
+    mkdir libeccodes0; \
+    wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
+        | tar -xzf -C libeccodes0 --strip-components=1; cd libeccodes0; \
+    ./configure --prefix=$PREFIX ; \
+    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source
+    make -j ${NPROC} install; \
+    ctest
+    make install
+    cd ../; rm -rf libeccodes0
 
 # tar -xzf  eccodes-x.y.z-Source.tar.gz
 # mkdir build ; cd build
