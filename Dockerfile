@@ -55,7 +55,7 @@ RUN \
     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
         | tar -xzf -C libeccodes0 --strip-components=1; cd libeccodes0; \
     ./configure --prefix=$PREFIX ; \
-    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes/eccodes-x.y.z-Source
+    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes/eccodes-2.19.0-Source
     make -j ${NPROC} install; \
     ctest
     make install
@@ -63,10 +63,10 @@ RUN \
 
 # tar -xzf  eccodes-x.y.z-Source.tar.gz
 # mkdir build ; cd build
-cmake -DCMAKE_INSTALL_PREFIX=/path/to/where/you/install/eccodes ../eccodes-x.y.z-Source
-make
-ctest
-make install
+# cmake -DCMAKE_INSTALL_PREFIX=/path/to/where/you/install/eccodes ../eccodes-x.y.z-Source
+# make
+# ctest
+# make install
 
 # pkg-config - version > 2.5 required for GDAL 2.3+
 # RUN \
