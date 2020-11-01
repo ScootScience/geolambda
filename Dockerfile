@@ -30,7 +30,7 @@ ENV \
 #     CURL_VERSION=7.66.0 \
 #     LIBJPEG_TURBO_VERSION=2.0.3 \
 #     PKGCONFIG_VERSION=0.29.2 \
-    LIBECCODES_VERSION=2.19.0 \
+    LIBECCODES_VERSION=2.19.0
 #     SZIP_VERSION=2.1.1 \
 #     WEBP_VERSION=1.0.3 \
 #     ZSTD_VERSION=1.4.3 \
@@ -55,10 +55,10 @@ RUN \
     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
         | tar -xzf -C libeccodes0 --strip-components=1; cd libeccodes0; \
     ./configure --prefix=$PREFIX ; \
-    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source
+    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
     make -j ${NPROC} install; \
-    ctest
-    make install
+    ctest; \
+    make install ; \
     cd ../; rm -rf libeccodes0
 
 # tar -xzf  eccodes-x.y.z-Source.tar.gz
