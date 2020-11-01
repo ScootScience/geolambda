@@ -7,7 +7,7 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 # install system libraries
 RUN \
     apt update && \
-    apt-get install --assume-yes libeccodes0 zip binutils rsync libbz2-dev && \ 
+    apt-get install --assume-yes libeccodes0 libeccodes0-dev zip binutils rsync libbz2-dev && \ 
     apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
     pip3 install cfgrib eccodes-python eccodes
     # yum makecache fast; \
@@ -17,7 +17,7 @@ RUN \
     # yum autoremove
 
 # versions of packages
-# ENV \
+ENV \
 #     GDAL_VERSION=3.0.1 \
 #     PROJ_VERSION=6.2.0 \
 #     GEOS_VERSION=3.8.0 \
@@ -30,6 +30,7 @@ RUN \
 #     CURL_VERSION=7.66.0 \
 #     LIBJPEG_TURBO_VERSION=2.0.3 \
 #     PKGCONFIG_VERSION=0.29.2 \
+    LIBECCODES_VERSION=0.29.2 \
 #     SZIP_VERSION=2.1.1 \
 #     WEBP_VERSION=1.0.3 \
 #     ZSTD_VERSION=1.4.3 \
@@ -48,6 +49,24 @@ ENV \
 
 # switch to a build directory
 WORKDIR /build
+
+RUN \
+    mkdir libeccodes0; \
+    wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
+        | tar -xzf -C libeccodes0 --strip-components=1; cd libeccodes0; \
+    ./configure --prefix=$PREFIX ; \
+    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes/eccodes-x.y.z-Source
+    make -j ${NPROC} install; \
+    ctest
+    make install
+    cd ../; rm -rf libeccodes0
+
+# tar -xzf  eccodes-x.y.z-Source.tar.gz
+# mkdir build ; cd build
+cmake -DCMAKE_INSTALL_PREFIX=/path/to/where/you/install/eccodes ../eccodes-x.y.z-Source
+make
+ctest
+make install
 
 # pkg-config - version > 2.5 required for GDAL 2.3+
 # RUN \
