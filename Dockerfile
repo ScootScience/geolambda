@@ -97,10 +97,10 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 RUN mkdir eccodes \
     && cd eccodes \
     && mkdir build \
-    && cd build \
-    && wget -O eccodes_test_data.tar.gz  "http://download.ecmwf.org/test-data/grib_api/eccodes_test_data.tar.gz" \
-    && tar -xzf eccodes_test_data.tar.gz \
-    && rm eccodes_test_data.tar.gz \
+    # && cd build \
+    # && wget -O eccodes_test_data.tar.gz  "http://download.ecmwf.org/test-data/grib_api/eccodes_test_data.tar.gz" \
+    # && tar -xzf eccodes_test_data.tar.gz \
+    # && rm eccodes_test_data.tar.gz \
     && cd /eccodes \
     && wget -O eccodes.tar.gz "https://software.ecmwf.int/wiki/download/attachments/45757960/eccodes-2.0.2-Source.tar.gz?api=v2" \
     && tar -xzf eccodes.tar.gz \
