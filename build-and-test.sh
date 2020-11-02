@@ -24,4 +24,16 @@ aws lambda publish-layer-version \
 	--zip-file fileb://lambda-deploy.zip
     # --compatible-runtimes python3.6 python3.7
 
+# aws lambda publish-layer-version \
+# 	--layer-name cfgribGeolambda \
+# 	--license-info "Proprietary" \
+# 	--description "EECodes C library (libeccodes0) for cfGrib driver (adds GRIB file backend for xarray)" \
+# 	--zip-file fileb://lambda.zip
+
+# aws lambda publish-layer-version \
+# 	--layer-name cfgribGeolambda \
+# 	--license-info "Proprietary" \
+# 	--description "EECodes C library (libeccodes0) for cfGrib driver (adds GRIB file backend for xarray)" \
+# 	--zip-file fileb://docker_layer.zip
+
 # attach to lambda
