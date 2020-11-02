@@ -109,7 +109,7 @@ RUN mkdir eccodes \
     && pwd \
     && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/eccodes -DENABLE_NETCDF=OFF -DENABLE_MEMFS=ON -DENABLE_PNG=ON ../eccodes-2.0.2-Source \
     && make \
-    && ctest \
+    # && ctest \
     && make install \
     && pwd \
     && rm -rf /eccodes
