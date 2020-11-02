@@ -16,6 +16,19 @@ RUN \
     yum-config-manager --enable epel; \
     yum install -y wget libpng-devel nasm unzip netcdf-devel.x86_64; \
     yum install -y bash-completion --enablerepo=epel; \
+    yum install -y \
+    chrpath \
+    zip \
+    gcc \
+    git \
+    jasper-devel \
+    jasper-libs \
+    openjpeg2-tools \
+    openjpeg2-devel \ 
+    openjpeg2 \
+    python36 \
+    python36-pip \
+    python36-devel; \
     yum clean -y all; \
     yum remove -y cmake; \
     yum autoremove -y
@@ -95,25 +108,45 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 #     # make install ; \
 #     cd ../; rm -rf libeccodes0
 
-RUN mkdir eccodes \
-    && cd eccodes \
-    && mkdir build \
-    # && cd build \
-    # && wget -O eccodes_test_data.tar.gz  "http://download.ecmwf.org/test-data/grib_api/eccodes_test_data.tar.gz" \
-    # && tar -xzf eccodes_test_data.tar.gz \
-    # && rm eccodes_test_data.tar.gz \
-    # && cd /eccodes \
-    && wget -O eccodes.tar.gz "https://software.ecmwf.int/wiki/download/attachments/45757960/eccodes-2.0.2-Source.tar.gz?api=v2" \
-    && tar -xzf eccodes.tar.gz \
-    && cd build \
-    && pwd \
-    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/eccodes -DENABLE_NETCDF=OFF -DENABLE_MEMFS=ON -DENABLE_PNG=ON ../eccodes-2.0.2-Source \
-    && make \
-    # && ctest \
-    && make install \
-    && pwd \
-    && rm -rf /eccodes
+# works but doesn't copy over
+# RUN mkdir eccodes \
+#     && cd eccodes \
+#     && mkdir build \
+#     # && cd build \
+#     # && wget -O eccodes_test_data.tar.gz  "http://download.ecmwf.org/test-data/grib_api/eccodes_test_data.tar.gz" \
+#     # && tar -xzf eccodes_test_data.tar.gz \
+#     # && rm eccodes_test_data.tar.gz \
+#     # && cd /eccodes \
+#     && wget -O eccodes.tar.gz "https://software.ecmwf.int/wiki/download/attachments/45757960/eccodes-2.0.2-Source.tar.gz?api=v2" \
+#     && tar -xzf eccodes.tar.gz \
+#     && cd build \
+#     && pwd \
+#     && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/eccodes -DENABLE_NETCDF=OFF -DENABLE_MEMFS=ON -DENABLE_PNG=ON ../eccodes-2.0.2-Source \
+#     && make \
+#     # && ctest \
+#     && make install \
+#     && pwd \
+#     && rm -rf /eccodes
 
+# thrid try
+WORKDIR /tmp
+
+ENV ECCODES_URL=https://software.ecmwf.int/wiki/download/attachments/45757960 \
+    ECCODES_VERSION=eccodes-2.10.0-Source
+RUN cd /tmp && wget --output-document=${ECCODES_VERSION}.tar.gz ${ECCODES_URL}/${ECCODES_VERSION}.tar.gz?api=v2 && tar -zxvf ${ECCODES_VERSION}.tar.gz
+
+RUN cd ${ECCODES_VERSION} && mkdir build && cd build && \
+    cmake -DENABLE_FORTRAN=false -DPYTHON_LIBRARY_DIR=/usr/lib64/python3.6 -DPYTHON_INCLUDE_DIR=/usr/include/python3.6m -DPYTHON_EXECUTABLE=/usr/bin/python3  .. \
+    && make -j2 && make install \
+    && cd python3 && python3 setup.py install
+
+WORKDIR /lambda_root
+
+RUN cp -r /usr/local/lib64/python3.6/site-packages/eccodes /usr/local/lib64/python3.6/site-packages/numpy /usr/local/lib64/python3.6/site-packages/gribapi . && \
+    mv /usr/local/lib/libeccodes.so gribapi/ && \
+    chrpath -r '$ORIGIN' gribapi/_gribapi_swig.cpython-36m-x86_64-linux-gnu.so
+
+COPY create_deployment.sh /usr/local/bin/
 
 # tar -xzf  eccodes-x.y.z-Source.tar.gz
 # mkdir build ; cd build
@@ -292,6 +325,6 @@ RUN mkdir eccodes \
 
 
 # Copy shell scripts and config files over
-COPY bin/* /usr/local/bin/
+# COPY bin/* /usr/local/bin/
 
 WORKDIR /home/geolambda

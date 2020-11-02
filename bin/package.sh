@@ -2,6 +2,7 @@
 
 # directory used for deployment
 export DEPLOY_DIR=lambda
+export PREFIX=/usr/local
 
 echo Creating deploy package
 
