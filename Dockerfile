@@ -82,17 +82,17 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 # sudo make install
 
 # Install ECCODES library
-# RUN \
-#     mkdir libeccodes0; \
-#     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
-#         | tar -xzv -C libeccodes0 --strip-components=1; cd libeccodes0; \
-#     # ./configure --prefix=$PREFIX ; \
-#     /usr/local/bin/.cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
-#     make ; \
-#     make -j ${NPROC} install; \
-#     # ctest; \
-#     # make install ; \
-#     cd ../; rm -rf libeccodes0
+RUN \
+    mkdir libeccodes0; \
+    wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
+        | tar -xzv -C libeccodes0 --strip-components=1; cd libeccodes0; \
+    # ./configure --prefix=$PREFIX ; \
+    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
+    make ; \
+    make -j ${NPROC} install; \
+    # ctest; \
+    # make install ; \
+    cd ../; rm -rf libeccodes0
 
 # tar -xzf  eccodes-x.y.z-Source.tar.gz
 # mkdir build ; cd build
