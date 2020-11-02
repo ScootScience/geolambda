@@ -17,6 +17,7 @@ RUN \
     yum install -y wget libpng-devel nasm unzip netcdf-devel.x86_64; \
     yum install -y bash-completion --enablerepo=epel; \
     yum install -y \
+    rsync \
     chrpath \
     zip \
     gcc \
