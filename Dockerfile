@@ -346,6 +346,6 @@ COPY create_deployment.sh /usr/local/bin/
 
 
 # Copy shell scripts and config files over
-# COPY bin/* /usr/local/bin/
+COPY bin/* /usr/local/bin/
 
 WORKDIR /home/geolambda
