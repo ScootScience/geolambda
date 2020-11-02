@@ -13,6 +13,7 @@ RUN \
     # apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
     # pip3 install cfgrib eccodes-python eccodes
     yum makecache fast; \
+    yum-config-manager --enable epel; \
     yum install -y wget libpng-devel nasm unzip netcdf-devel; \
     yum install -y bash-completion --enablerepo=epel; \
     yum clean -y all; \
