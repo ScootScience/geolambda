@@ -10,7 +10,7 @@ mkdir -p $DEPLOY_DIR/lib
 mkdir -p $DEPLOY_DIR/python
 
 # copy libs
-cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
+# cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
 # cp -P ${PREFIX}/lib64/libjpeg*.so* $DEPLOY_DIR/lib/
 
 # strip $DEPLOY_DIR/lib/* || true
@@ -19,7 +19,7 @@ cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
 mkdir -p $DEPLOY_DIR/share
 # rsync -ax $PREFIX/share/gdal $DEPLOY_DIR/share/
 # rsync -ax $PREFIX/share/proj $DEPLOY_DIR/share/
-rsync -ax $PREFIX/eccodes/* $DEPLOY_DIR/share/
+cp -P $PREFIX/eccodes/* $DEPLOY_DIR/share/
 
 # copy python packages
 pip3 install cfgrib pyeccodes -t $DEPLOY_DIR/python
