@@ -1,4 +1,4 @@
-FROM lambci/lambda:build-provided
+FROM lambci/lambda:python3.6
 # FROM ubuntu:bionic
 
 LABEL maintainer="Scoot Science/Connor Dibble <connor.dibble@scootscience.com>"
@@ -96,7 +96,7 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 # make
 # sudo make install
 
-# Install ECCODES library
+# Install ECCODES library - try 1
 # RUN \
 #     mkdir libeccodes0; \
 #     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
@@ -109,7 +109,7 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 #     # make install ; \
 #     cd ../; rm -rf libeccodes0
 
-# works but doesn't copy over
+# try 2 - works but doesn't copy over; from here https://github.com/kilobike/eccodes-docker
 # RUN mkdir eccodes \
 #     && cd eccodes \
 #     && mkdir build \
@@ -130,12 +130,13 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 #     && rm -rf /eccodes
 
 # thrid try
-RUN python3.6 -m pip install numpy
+RUN python3.6 -m pip install numpy cfgrib pyeccodes
 
 WORKDIR /tmp
 
 ENV ECCODES_URL=https://software.ecmwf.int/wiki/download/attachments/45757960 \
     ECCODES_VERSION=eccodes-2.10.0-Source
+
 RUN cd /tmp && wget --output-document=${ECCODES_VERSION}.tar.gz ${ECCODES_URL}/${ECCODES_VERSION}.tar.gz?api=v2 && tar -zxvf ${ECCODES_VERSION}.tar.gz
 
 RUN cd ${ECCODES_VERSION} && mkdir build && cd build && \
