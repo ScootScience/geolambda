@@ -1,4 +1,4 @@
-FROM lambci/lambda:python3.6
+FROM lambci/lambda:build-provided
 # FROM ubuntu:bionic
 
 LABEL maintainer="Scoot Science/Connor Dibble <connor.dibble@scootscience.com>"
