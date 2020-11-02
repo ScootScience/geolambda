@@ -7,7 +7,9 @@ LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 # install system libraries
 RUN \
     # apt update && \
-    # apt-get install --assume-yes libeccodes0 libeccodes0-dev zip binutils rsync libbz2-dev && \ 
+    # apt-get install --assume-yes libeccodes0 libeccodes0-dev zip binutils rsync libbz2-dev software-properties-common && \
+    # add-apt-repository ppa:george-edison55/cmake-3.18 \
+    # apt-get update \ 
     # apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
     # pip3 install cfgrib eccodes-python eccodes
     yum makecache fast; \
@@ -56,10 +58,11 @@ RUN \
     mkdir cmake; \
     wget -qO- https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz \
         | tar -xzv -C cmake --strip-components=1; cd cmake; \
-    # ./configure --prefix=$PREFIX ; \
     ./bootstrap \
     make; \
-    make -j ${NPROC} install ; \
+    make install;
+    # installed into /usr/local/bin/.cmake
+    # make -j ${NPROC} install ; \
     cd ../; rm -rf cmake
 
 # wget https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz
@@ -75,9 +78,9 @@ RUN \
     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
         | tar -xzv -C libeccodes0 --strip-components=1; cd libeccodes0; \
     # ./configure --prefix=$PREFIX ; \
-    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
+    /usr/local/bin/.cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
     make -j ${NPROC} install; \
-    ctest; \
+    # ctest; \
     make install ; \
     cd ../; rm -rf libeccodes0
 
