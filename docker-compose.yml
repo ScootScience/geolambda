@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+
+  package36:
+    image: scootscience/geolambda:1.0.1
+    command: sh "create_deployment.sh"
+    working_dir: /deployment
+    volumes:
+      - './lambda:/lambda'
+      - './:/export'
