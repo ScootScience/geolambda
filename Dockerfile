@@ -14,7 +14,7 @@ RUN \
     # pip3 install cfgrib eccodes-python eccodes
     yum makecache fast; \
     yum-config-manager --enable epel; \
-    yum install -y wget libpng-devel nasm unzip netcdf-devel; \
+    yum install -y wget libpng-devel nasm unzip netcdf-devel.x86_64; \
     yum install -y bash-completion --enablerepo=epel; \
     yum clean -y all; \
     yum remove -y cmake; \
@@ -107,7 +107,7 @@ RUN mkdir eccodes \
     && tar -xzf eccodes.tar.gz \
     && cd build \
     && pwd \
-    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/eccodes -DENABLE_MEMFS=ON -DENABLE_PNG=ON ../eccodes-2.0.2-Source \
+    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/eccodes -ENABLE_NETCDF=False -DENABLE_MEMFS=ON -DENABLE_PNG=ON ../eccodes-2.0.2-Source \
     && make \
     && ctest \
     && make install \
