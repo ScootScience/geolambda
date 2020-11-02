@@ -5,21 +5,38 @@ LABEL maintainer="Scoot Science/Connor Dibble <connor.dibble@scootscience.com>"
 LABEL authors="Connor Dibble  <connor.dibble@scootscience.com>"
 
 # install system libraries
-RUN \
-    # apt update && \
-    # apt-get install --assume-yes libeccodes0 libeccodes0-dev zip binutils rsync libbz2-dev software-properties-common && \
-    # add-apt-repository ppa:george-edison55/cmake-3.18 \
-    # apt-get update \ 
-    # apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
-    # pip3 install cfgrib eccodes-python eccodes
-    yum makecache fast; \
-    yum-config-manager --enable epel; \
-    yum install -y wget libpng-devel nasm unzip netcdf-devel.x86_64; \
-    yum install -y bash-completion --enablerepo=epel; \
-    yum install -y \
-    rsync \
+# RUN \
+#     # apt update && \
+#     # apt-get install --assume-yes libeccodes0 libeccodes0-dev zip binutils rsync libbz2-dev software-properties-common && \
+#     # add-apt-repository ppa:george-edison55/cmake-3.18 \
+#     # apt-get update \ 
+#     # apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
+#     # pip3 install cfgrib eccodes-python eccodes
+#     yum makecache fast; \
+#     yum-config-manager --enable epel; \
+#     yum install -y wget libpng-devel nasm unzip netcdf-devel.x86_64; \
+#     yum install -y bash-completion --enablerepo=epel; \
+#     yum install -y \
+#     rsync \
+#     chrpath \
+#     zip \
+#     gcc \
+#     git \
+#     jasper-devel \
+#     jasper-libs \
+#     openjpeg2-tools \
+#     openjpeg2-devel \ 
+#     openjpeg2 \
+#     python36 \
+#     python36-pip \
+#     python36-devel; \
+#     yum clean -y all; \
+#     yum remove -y cmake; \
+#     yum autoremove -y
+
+RUN yum -y install  \
+    cmake \
     chrpath \
-    zip \
     gcc \
     git \
     jasper-devel \
@@ -29,10 +46,10 @@ RUN \
     openjpeg2 \
     python36 \
     python36-pip \
-    python36-devel; \
-    yum clean -y all; \
-    yum remove -y cmake; \
-    yum autoremove -y
+    python36-devel \
+    wget \
+    zip \
+    && yum clean all
 
 # versions of packages
 ENV \
