@@ -13,7 +13,7 @@ RUN \
     # apt install --assume-yes build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3.6 python3-pip && \
     # pip3 install cfgrib eccodes-python eccodes
     yum makecache fast; \
-    yum install -y wget libpng-devel nasm eccodes; \
+    yum install -y wget libpng-devel nasm unzip; \
     yum install -y bash-completion --enablerepo=epel; \
     yum clean -y all; \
     yum remove -y cmake; \
@@ -82,17 +82,27 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 # sudo make install
 
 # Install ECCODES library
-RUN \
-    mkdir libeccodes0; \
-    wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
-        | tar -xzv -C libeccodes0 --strip-components=1; cd libeccodes0; \
-    # ./configure --prefix=$PREFIX ; \
-    cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
-    make ; \
-    make -j ${NPROC} install; \
-    # ctest; \
-    # make install ; \
-    cd ../; rm -rf libeccodes0
+# RUN \
+#     mkdir libeccodes0; \
+#     wget -qO- https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.19.0-Source.tar.gz?api=v2 \
+#         | tar -xzv -C libeccodes0 --strip-components=1; cd libeccodes0; \
+#     # ./configure --prefix=$PREFIX ; \
+#     cmake -DCMAKE_INSTALL_PREFIX={$PREFIX}/libeccodes0/eccodes-2.19.0-Source; \
+#     make ; \
+#     make -j ${NPROC} install; \
+#     # ctest; \
+#     # make install ; \
+#     cd ../; rm -rf libeccodes0
+
+
+RUN mkdir dwd \
+&& cd dwd \
+&& wget -O bufrtables_ecCodes.zip  "http://www.dwd.de/DE/leistungen/gds/help/schluessel_datenformate/bufrtables_ecCodes_zip.zip?__blob=publicationFile&v=2" \
+    && unzip bufrtables_ecCodes.zip \
+    && rm bufrtables_ecCodes.zip \
+    && rsync -a bufr/  /usr/local/eccodes/share/eccodes/definitions/bufr/ \
+    && rm -rf /dwd
+
 
 # tar -xzf  eccodes-x.y.z-Source.tar.gz
 # mkdir build ; cd build
