@@ -8,6 +8,7 @@ VERSION=$(cat VERSION)
 sudo docker build . -t scootscience/geolambda:${VERSION}
 sudo docker run --rm -v $PWD:/home/geolambda -it scootscience/geolambda:${VERSION} package.sh
 
+
 # test below
 # cd python
 # docker build . --build-arg VERSION=${VERSION} -t developmentseed/geolambda:${VERSION}-python

@@ -15,9 +15,9 @@ RUN \
     yum makecache fast; \
     yum install -y wget libpng-devel nasm eccodes; \
     yum install -y bash-completion --enablerepo=epel; \
-    yum clean all; \
-    yum remove cmake; \
-    yum autoremove
+    yum clean -y all; \
+    yum remove -y cmake; \
+    yum autoremove -y
 
 # versions of packages
 ENV \
@@ -54,16 +54,25 @@ ENV \
 WORKDIR /build
 
 # Upgrade cmake by installing from source
-RUN \
-    mkdir cmake; \
-    wget -qO- https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz \
-        | tar -xzv -C cmake --strip-components=1; cd cmake; \
-    ./bootstrap \
-    make; \
-    make install; \
-    # installed into /usr/local/bin/.cmake
-    # make -j ${NPROC} install ; \
-    cd ../; rm -rf cmake
+# RUN \
+#     mkdir cmake; \
+#     wget -qO- https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz \
+#         | tar -xzv -C cmake --strip-components=1; cd cmake; \
+#     ./bootstrap \
+#     make; \
+#     make install; \
+#     # installed into /usr/local/bin/.cmake
+#     # make -j ${NPROC} install ; \
+#     cd ../; rm -rf cmake
+
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2-Linux-x86_64.sh \
+    -q -O /tmp/cmake-install.sh \
+    && chmod u+x /tmp/cmake-install.sh \
+    && mkdir /usr/bin/cmake \
+    && /tmp/cmake-install.sh --skip-license --prefix=/usr/bin/cmake \
+    && rm /tmp/cmake-install.sh
+
+ENV PATH="/usr/bin/cmake/bin:${PATH}"
 
 # wget https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz
 # tar -xvzf cmake-3.18.0.tar.gz
