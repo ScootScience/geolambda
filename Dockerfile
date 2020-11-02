@@ -129,6 +129,8 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 #     && rm -rf /eccodes
 
 # thrid try
+RUN python3.6 -m pip install numpy
+
 WORKDIR /tmp
 
 ENV ECCODES_URL=https://software.ecmwf.int/wiki/download/attachments/45757960 \
