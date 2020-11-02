@@ -107,7 +107,7 @@ RUN mkdir eccodes \
     && tar -xzf eccodes.tar.gz \
     && cd build \
     && pwd \
-    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/eccodes -ENABLE_NETCDF=False -DENABLE_MEMFS=ON -DENABLE_PNG=ON ../eccodes-2.0.2-Source \
+    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/eccodes -ENABLE_NETCDF=OFF -DENABLE_MEMFS=ON -DENABLE_PNG=ON ../eccodes-2.0.2-Source \
     && make \
     && ctest \
     && make install \
