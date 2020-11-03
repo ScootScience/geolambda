@@ -18,7 +18,7 @@ sudo docker run --rm -v $PWD:/home/geolambda -it scootscience/geolambda:${VERSIO
 
 # publish
 aws lambda publish-layer-version \
-	--layer-name cfgribGeolambda \
+	--layer-name cfgribGeolambda_standalone \
 	--license-info "Proprietary" \
 	--description "EECodes C library (libeccodes0) for cfGrib driver (adds GRIB file backend for xarray)" \
 	--zip-file fileb://lambda-deploy.zip \
