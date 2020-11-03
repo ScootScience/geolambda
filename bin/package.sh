@@ -2,7 +2,7 @@
 
 # directory used for deployment
 export DEPLOY_DIR=lambda
-export PREFIX=/usr/local
+export PREFIX=/usr/local/share
 
 echo Creating deploy package
 
@@ -11,7 +11,7 @@ mkdir -p $DEPLOY_DIR/lib
 mkdir -p $DEPLOY_DIR/python
 
 # copy libs
-# cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
+cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
 # cp -P ${PREFIX}/lib64/libjpeg*.so* $DEPLOY_DIR/lib/
 
 # strip $DEPLOY_DIR/lib/* || true
