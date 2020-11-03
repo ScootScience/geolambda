@@ -164,8 +164,9 @@ RUN cd ${ECCODES_VERSION} && mkdir build && cd build && \
 WORKDIR /lambda_root
 
 RUN cp -r /usr/local/lib64/python3.6/site-packages/eccodes /usr/local/lib64/python3.6/site-packages/numpy /usr/local/lib64/python3.6/site-packages/gribapi . && \
-    mv /usr/local/lib/libeccodes.so gribapi/ && \
-    chrpath -r '$ORIGIN' gribapi/_gribapi_swig.cpython-36m-x86_64-linux-gnu.so
+    # cp /usr/local/lib/libeccodes.so 
+    # gribapi/ && \
+    # chrpath -r '$ORIGIN' gribapi/_gribapi_swig.cpython-36m-x86_64-linux-gnu.so
 
 # ENV \
 #     ECCODES_DIR=/mnt/efs_mnt/lib/eccodes_binaries
