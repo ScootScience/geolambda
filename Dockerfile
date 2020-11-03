@@ -147,7 +147,7 @@ ENV PATH="/usr/bin/cmake/bin:${PATH}"
 #     && rm -rf /eccodes
 
 # thrid try
-RUN python3.6 -m pip install numpy cfgrib pyeccodes
+RUN python3.6 -m pip install numpy cfgrib eccodes
 
 WORKDIR /tmp
 
@@ -167,7 +167,9 @@ RUN cp -r /usr/local/lib64/python3.6/site-packages/eccodes /usr/local/lib64/pyth
     mv /usr/local/lib/libeccodes.so gribapi/ && \
     chrpath -r '$ORIGIN' gribapi/_gribapi_swig.cpython-36m-x86_64-linux-gnu.so
 
-COPY create_deployment.sh /usr/local/bin/
+# ENV \
+#     ECCODES_DIR=/mnt/efs_mnt/lib/eccodes_binaries
+# COPY create_deployment.sh /usr/local/bin/
 
 # tar -xzf  eccodes-x.y.z-Source.tar.gz
 # mkdir build ; cd build
