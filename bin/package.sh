@@ -20,7 +20,7 @@ cp -P ${PREFIX}/lib/*.so* $DEPLOY_DIR/lib/
 mkdir -p $DEPLOY_DIR/share
 # rsync -ax $PREFIX/share/gdal $DEPLOY_DIR/share/
 # rsync -ax $PREFIX/share/proj $DEPLOY_DIR/share/
-cp -P /usr/local/share/eccodes/* $DEPLOY_DIR/share/
+cp -r /usr/local/share/eccodes/* $DEPLOY_DIR/share/
 
 # copy python packages
 pip3 install cfgrib pyeccodes eccodes eccodes-python -t $DEPLOY_DIR/python
