@@ -23,7 +23,8 @@ mkdir -p $DEPLOY_DIR/share
 cp -r /usr/local/share/eccodes/* $DEPLOY_DIR/share/
 
 # copy python packages
-pip3 install cfgrib pyeccodes eccodes eccodes-python -t $DEPLOY_DIR/python
+pip3 install cfgrib -t $DEPLOY_DIR/python
+# try above pegged at 0.9.7.7 to avoid dling pyeccodes.
 
 # zip up deploy package
 cd $DEPLOY_DIR
